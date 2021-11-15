@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt.model;
+package ru.ibs.trainee.spring.myhwswcurity.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

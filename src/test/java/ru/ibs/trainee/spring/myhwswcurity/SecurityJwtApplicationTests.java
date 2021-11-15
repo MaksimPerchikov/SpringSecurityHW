@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt;
+package ru.ibs.trainee.spring.myhwswcurity;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

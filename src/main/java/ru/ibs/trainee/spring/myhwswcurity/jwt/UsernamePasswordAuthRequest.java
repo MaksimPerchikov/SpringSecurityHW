@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt.jwt;
+package ru.ibs.trainee.spring.myhwswcurity.jwt;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

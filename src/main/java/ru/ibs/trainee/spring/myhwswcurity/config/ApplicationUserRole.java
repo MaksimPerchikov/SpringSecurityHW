@@ -1,21 +1,19 @@
-package ru.ibs.trainee.spring.securityjwt.config;
+package ru.ibs.trainee.spring.myhwswcurity.config;
 
 import com.google.common.collect.Sets;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static ru.ibs.trainee.spring.securityjwt.config.ApplicationUserPermission.EMPLOYEE_READ;
-import static ru.ibs.trainee.spring.securityjwt.config.ApplicationUserPermission.EMPLOYEE_WRITE;
-import static ru.ibs.trainee.spring.securityjwt.config.ApplicationUserPermission.TASK_READ;
-import static ru.ibs.trainee.spring.securityjwt.config.ApplicationUserPermission.TASK_WRITE;
+import static ru.ibs.trainee.spring.myhwswcurity.config.ApplicationUserPermission.*;
 
 public enum ApplicationUserRole {
     EMPLOYEE(Sets.newHashSet(EMPLOYEE_READ, TASK_READ, TASK_WRITE)),
     MANAGER(Sets.newHashSet(EMPLOYEE_READ, EMPLOYEE_WRITE, TASK_READ, TASK_WRITE)),
-    TRAINEE(Sets.newHashSet(TASK_READ, EMPLOYEE_READ));
+    TRAINEE(Sets.newHashSet(TASK_READ, EMPLOYEE_READ)),
+    SCRUM_MASTER(Sets.newHashSet(EMPLOYEE_READ,TASK_WRITE));
+
 
     private final Set<ApplicationUserPermission> permissions;
 

@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt.jwt;
+package ru.ibs.trainee.spring.myhwswcurity.jwt;
 
 import com.google.common.base.Strings;
 import io.jsonwebtoken.Jwts;

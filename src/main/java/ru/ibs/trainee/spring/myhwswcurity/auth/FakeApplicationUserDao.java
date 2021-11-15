@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt.auth;
+package ru.ibs.trainee.spring.myhwswcurity.auth;
 
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static ru.ibs.spring.config.ApplicationUserRole.SCRUM_MASTER;
-import static ru.ibs.trainee.spring.securityjwt.config.ApplicationUserRole.*;
+
+import static ru.ibs.trainee.spring.myhwswcurity.config.ApplicationUserRole.*;
 
 @RequiredArgsConstructor
-@Service("fake")
+@Service
 public class FakeApplicationUserDao implements ApplicationUserDao {
 
     private final PasswordEncoder passwordEncoder;
@@ -55,14 +55,14 @@ public class FakeApplicationUserDao implements ApplicationUserDao {
                         true,
                         true
                 ),
-        new ApplicationUser(
-                "maksim",
-                passwordEncoder.encode("123"),
-                SCRUM_MASTER.getAuthorities(),
-                true,
-                true,
-                true,
-                true
+                     new ApplicationUser(
+                        "maksim",
+                        passwordEncoder.encode("123"),
+                        SCRUM_MASTER.getAuthorities(),
+                        true,
+                        true,
+                        true,
+                        true
         )
         );
     }

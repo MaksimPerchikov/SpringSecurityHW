@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt.auth;
+package ru.ibs.trainee.spring.myhwswcurity.auth;
 
 import java.util.Optional;
 

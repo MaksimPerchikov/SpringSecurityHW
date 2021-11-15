@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt.config;
+package ru.ibs.trainee.spring.myhwswcurity.config;
 
 public enum ApplicationUserPermission {
     EMPLOYEE_READ("employee:read"),

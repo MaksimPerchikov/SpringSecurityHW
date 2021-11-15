@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt.jwt;
+package ru.ibs.trainee.spring.myhwswcurity.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,9 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        String token = jwtProvider.createToken(authResult);
-        response.addHeader(HttpHeaders.AUTHORIZATION, token);
+        String access_token = jwtProvider.createToken(authResult);
+        //String refresh_token = jwtProvider.createToken(authResult);
+        response.addHeader(HttpHeaders.AUTHORIZATION, access_token);
+
     }
 }

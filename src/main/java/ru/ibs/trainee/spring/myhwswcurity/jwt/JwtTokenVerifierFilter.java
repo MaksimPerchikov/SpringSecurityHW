@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt.jwt;
+package ru.ibs.trainee.spring.myhwswcurity.jwt;
 
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;

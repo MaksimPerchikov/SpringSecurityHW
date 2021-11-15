@@ -1,4 +1,4 @@
-package ru.ibs.trainee.spring.securityjwt.config;
+package ru.ibs.trainee.spring.myhwswcurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
