@@ -3,7 +3,6 @@ package ru.ibs.trainee.spring.myhwswcurity.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,9 +15,6 @@ import ru.ibs.trainee.spring.myhwswcurity.auth.ApplicationUserService;
 import ru.ibs.trainee.spring.myhwswcurity.jwt.JwtProvider;
 import ru.ibs.trainee.spring.myhwswcurity.jwt.JwtTokenVerifierFilter;
 import ru.ibs.trainee.spring.myhwswcurity.jwt.JwtUsernameAndPasswordAuthenticationFilter;
-
-import static ru.ibs.trainee.spring.myhwswcurity.config.ApplicationUserRole.MANAGER;
-import static ru.ibs.trainee.spring.myhwswcurity.config.ApplicationUserRole.SCRUM_MASTER;
 
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -40,10 +36,10 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtProvider))
                 .addFilterAfter(new JwtTokenVerifierFilter(jwtProvider), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/", "index").permitAll()
-                .antMatchers("manager/api/**").hasRole(MANAGER.name())
-                .antMatchers(HttpMethod.GET,"manager/api/**").hasRole(SCRUM_MASTER.name())
-                .antMatchers(HttpMethod.POST,"manager/api/**").hasRole(SCRUM_MASTER.name())
+             //   .antMatchers("/", "index").permitAll()
+              //  .antMatchers("manager/api/**").hasRole(MANAGER.name())
+              //  .antMatchers(HttpMethod.GET,"manager/api/**").hasRole(SCRUM_MASTER.name())
+              //  .antMatchers(HttpMethod.POST,"manager/api/**").hasRole(SCRUM_MASTER.name())
 //                .antMatchers(HttpMethod.DELETE, "/api/task/**").hasAuthority(TASK_WRITE.getPermission())
 //                .antMatchers(HttpMethod.POST, "/api/task/**").hasAuthority(TASK_WRITE.getPermission())
 //                .antMatchers(HttpMethod.PUT, "/api/task/**").hasAuthority(TASK_WRITE.getPermission())
