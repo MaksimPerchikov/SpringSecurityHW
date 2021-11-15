@@ -11,6 +11,8 @@ import java.util.Optional;
 
 import static ru.ibs.trainee.spring.myhwswcurity.config.ApplicationUserRole.*;
 
+//имплементация нашего интерфейса
+
 @RequiredArgsConstructor
 @Service
 public class FakeApplicationUserDao implements ApplicationUserDao {

@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
+
+//здесь храниим дополнительную информацию о пользователе
 @RequiredArgsConstructor
 public class ApplicationUser implements UserDetails {
 
