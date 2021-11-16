@@ -16,7 +16,8 @@ public class TaskController {
             new Task(1L,"Create app","Need new application"),
             new Task(2L,"Update properties","Update properties of db in dev stand")
     );
-    @PreAuthorize("hasAuthority('EMPLOYEE','TRAINEE')")
+    //@PreAuthorize("hasAuthority('EMPLOYEE','TRAINEE')")
+    @PreAuthorize("hasAuthority('task:read')")
     @GetMapping("{id}")
     public Task getTask(@PathVariable("id") Long taskId){
         return TASKS.stream()
