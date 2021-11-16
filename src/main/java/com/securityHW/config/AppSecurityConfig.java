@@ -1,17 +1,26 @@
-package com.securityHW;
+package com.securityHW.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static com.securityHW.config.ApplicationUserRole.EMPLOYEE;
+import static com.securityHW.config.ApplicationUserRole.MANAGER;
+
+@RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -24,12 +33,22 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic();
     }
     @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {]
-        User.builder()
+    @Override //создаем сотрудников
+    protected UserDetailsService userDetailsService() {
+        UserDetails oliverUser =
+                User.builder()
                 .username("oliver")
-                .password("password")
+                .password(passwordEncoder.encode("password"))
+                .roles(EMPLOYEE.name())
+                .build();
 
-        return new InMemoryUserDetailsManager();
+        UserDetails henryUser =
+                User.builder()
+                        .username("henry")
+                        .password(passwordEncoder.encode("password123"))
+                        .roles(MANAGER.name())
+                        .build();
+
+        return new InMemoryUserDetailsManager(oliverUser,henryUser);
     }
 }
