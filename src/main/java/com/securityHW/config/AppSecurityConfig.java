@@ -12,8 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static com.securityHW.config.ApplicationUserRole.EMPLOYEE;
-import static com.securityHW.config.ApplicationUserRole.MANAGER;
+import static com.securityHW.config.ApplicationUserRole.*;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -27,6 +26,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/","index").permitAll()  //позволит открывать эти странички всем
+                .antMatchers("/manager/api/**").hasAnyRole(MANAGER.name(),SCRUM_MASTER.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -49,6 +49,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                         .roles(MANAGER.name())
                         .build();
 
-        return new InMemoryUserDetailsManager(oliverUser,henryUser);
+        UserDetails maksimUser =
+                User.builder()
+                        .username("Maksim")
+                        .password(passwordEncoder.encode("pass"))
+                        .roles(SCRUM_MASTER.name())
+                        .build();
+
+        return new InMemoryUserDetailsManager(oliverUser,henryUser,maksimUser);
     }
 }
