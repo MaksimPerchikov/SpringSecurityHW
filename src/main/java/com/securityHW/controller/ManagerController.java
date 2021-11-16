@@ -22,6 +22,7 @@ public class ManagerController {
             new Task(2L,"Update properties","Update properties of db in dev stand")
     );
 
+    @PreAuthorize("hasAuthority('employee:read')")
     @GetMapping("/employee/{id}")
     public Employee getEmployee(@PathVariable("id") Integer employeeId){
         return EMPLOYEES.stream()
@@ -31,7 +32,7 @@ public class ManagerController {
                         "Employee" + employeeId + "not found"
                 ));
     }
-    @PreAuthorize("hasRole('MANAGER','SCRUM_MASTER')")
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/task/{id}")
     public Task getTask(@PathVariable("id") Integer taskId){
         return TASKS.stream()
@@ -47,6 +48,7 @@ public class ManagerController {
         System.out.println("Employee " + employeeId + "is fired");
     }
 
+    @PreAuthorize("hasAuthority('task:write')")
     @PostMapping("/task/{id}")
     public void createTask(@PathVariable("id") String taskId, @RequestBody Task task) {
         System.out.println("Created new task" + task);
