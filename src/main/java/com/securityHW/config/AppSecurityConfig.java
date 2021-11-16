@@ -30,8 +30,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","index").permitAll()  //позволит открывать эти странички всем
                 .antMatchers("/manager/api/**").hasAnyRole(MANAGER.name(),SCRUM_MASTER.name()) //доступно только для манагера и скрама
-                .antMatchers(HttpMethod.PUT,"api/task").hasAuthority(TASK_WRITE.getPermission()) //закрываем доступ к api/task.Можно указывать не только Паттер эдпоинта("api/task"), но и метода.
+                .antMatchers(HttpMethod.PUT,"/api/task/**").hasAuthority(TASK_WRITE.getPermission()) //закрываем доступ к api/task.Можно указывать не только Паттер эдпоинта("api/task"), но и метода.
                 //Резюмирую,то есть,чтобы вызывать этот метод Пут,нужно иметь права доступа к ТаскВрайт
+                .antMatchers("/api/task/**").hasAnyRole(EMPLOYEE.name(), TRAINEE.name())//доступно только сотрудника и медеджера
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -44,23 +45,30 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 User.builder()
                 .username("oliver")
                 .password(passwordEncoder.encode("password"))
-                .roles(EMPLOYEE.name())
+                .authorities(EMPLOYEE.getAuthorities())
                 .build();
 
         UserDetails henryUser =
                 User.builder()
                         .username("henry")
                         .password(passwordEncoder.encode("password123"))
-                        .roles(MANAGER.name())
+                        .authorities(MANAGER.getAuthorities())
                         .build();
 
         UserDetails maksimUser =
                 User.builder()
-                        .username("Maksim")
+                        .username("maksim")
                         .password(passwordEncoder.encode("pass"))
-                        .roles(SCRUM_MASTER.name())
+                        .authorities(SCRUM_MASTER.getAuthorities())
                         .build();
 
-        return new InMemoryUserDetailsManager(oliverUser,henryUser,maksimUser);
+        UserDetails emmaUser =
+                User.builder()
+                        .username("emma")
+                        .password(passwordEncoder.encode("pass"))
+                        .authorities(TRAINEE.getAuthorities())
+                        .build();
+
+        return new InMemoryUserDetailsManager(oliverUser,henryUser,maksimUser,emmaUser);
     }
 }
