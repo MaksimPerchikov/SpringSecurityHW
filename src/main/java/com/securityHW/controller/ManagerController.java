@@ -2,10 +2,8 @@ package com.securityHW.controller;
 
 import com.securityHW.model.Employee;
 import com.securityHW.model.Task;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +31,7 @@ public class ManagerController {
                         "Employee" + employeeId + "not found"
                 ));
     }
-
+    @PreAuthorize("hasRole('MANAGER','SCRUM_MASTER')")
     @GetMapping("/task/{id}")
     public Task getTask(@PathVariable("id") Integer taskId){
         return TASKS.stream()
@@ -42,5 +40,15 @@ public class ManagerController {
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Task "+ taskId + "not found"
                 ));
+    }
+    @PreAuthorize("hasRole('MANAGER')")
+    @DeleteMapping("/employee/{id}")
+    public void fireEmployee(@PathVariable("id") Integer employeeId) {
+        System.out.println("Employee " + employeeId + "is fired");
+    }
+
+    @PostMapping("/task/{id}")
+    public void createTask(@PathVariable("id") String taskId, @RequestBody Task task) {
+        System.out.println("Created new task" + task);
     }
 }
