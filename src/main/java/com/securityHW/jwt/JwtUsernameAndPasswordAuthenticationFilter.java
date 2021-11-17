@@ -9,15 +9,22 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager manager;
+    private final JwtProvider jwtProvider;
+   // private UpdateToken updateToken;
+   ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
@@ -42,10 +49,30 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
             log.error("Unexpected error", e);
             throw new RuntimeException();
         }
-
-
-
-
-        //нам надо аутентифицировать
     }
+
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request,
+                                            HttpServletResponse response,
+                                            FilterChain chain,
+                                            Authentication authResult) throws IOException, ServletException {
+        String tokenFirst = jwtProvider.createToken(authResult);
+        String tokenRefra = jwtProvider.createRefreshToken(authResult);
+        
+        List<String> listToken = new ArrayList<>();
+        listToken.add(tokenFirst);
+        listToken.add(tokenRefra);
+
+        response.setContentType("application/json");
+        objectMapper.writeValue(response.getOutputStream(), listToken.listIterator());
+
+    }
+
+/*
+    eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWtzaW0iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TQ1JVTV9NQVNURVIifSx7ImF1dGhvcml0eSI6InRhc2s6d3JpdGUifSx7ImF1dGhvcml0eSI6ImVtcGxveWVlOnJlYWQifV0sImlhdCI6MTYzNzEwOTcwNiwiZXhwIjoxNjM3NzAxMjAwfQ.GCLavMDNDl6lKH60hqbFWHmnyiqJVC659nr8jS4JKYw
+
+
+    eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoZW5yeSIsImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJ0YXNrOnJlYWQifSx7ImF1dGhvcml0eSI6ImVtcGxveWVlOndyaXRlIn0seyJhdXRob3JpdHkiOiJ0YXNrOndyaXRlIn0seyJhdXRob3JpdHkiOiJST0xFX01BTkFHRVIifSx7ImF1dGhvcml0eSI6ImVtcGxveWVlOnJlYWQifV0sImlhdCI6MTYzNzExMTMxNSwiZXhwIjoxNjM3NzAxMjAwfQ.tls69AGI-Eis0rYfkP_sEcdLged9dz9fUcWgtE5jW50
+
+*/
 }
