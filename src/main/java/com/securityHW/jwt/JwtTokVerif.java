@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class JwtTokVerif extends OncePerRequestFilter {
+public class JwtTokVerif extends OncePerRequestFilter { //второй фильтр,выполняется на каждый реквест
 
 
     private final JwtProvider jwtProvider;

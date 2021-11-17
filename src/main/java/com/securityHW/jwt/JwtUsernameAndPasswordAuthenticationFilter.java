@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -57,14 +59,19 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
         String tokenFirst = jwtProvider.createToken(authResult);
-        String tokenRefra = jwtProvider.createRefreshToken(authResult);
-        
+        String tokenRefresh = jwtProvider.createRefreshToken(authResult);
+
         List<String> listToken = new ArrayList<>();
         listToken.add(tokenFirst);
-        listToken.add(tokenRefra);
+        listToken.add(tokenRefresh);
+
+        Map<String,String > mapToken = new HashMap<>();
+        mapToken.put("first token",tokenFirst);
+        mapToken.put("first refresh",tokenRefresh);
 
         response.setContentType("application/json");
-        objectMapper.writeValue(response.getOutputStream(), listToken.listIterator());
+        /*objectMapper.writeValue(response.getOutputStream(), listToken.listIterator());*/ //Вывод через лист
+        objectMapper.writeValue(response.getOutputStream(),mapToken); //вывод через мапу
 
     }
 
