@@ -31,6 +31,7 @@ public class JwtTokVerif extends OncePerRequestFilter {//выполняется 
                 filterChain.doFilter(request,response);
                 return;
             }
+
             String username = jwtProvider.getUsername(tokenFirst);
             List<GrantedAuthority> authorities = jwtProvider.getAuthorities(tokenFirst);
 

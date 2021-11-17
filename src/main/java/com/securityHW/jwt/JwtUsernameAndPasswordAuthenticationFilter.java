@@ -44,6 +44,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
             Authentication authenticate =
                     manager.authenticate(authentication); //мы должны аутентифицировать пользователя и помещаем в данный метод Аутентификецшн(Authentication)
 
+
+
             return authenticate;
 
         } catch (IOException e) {
