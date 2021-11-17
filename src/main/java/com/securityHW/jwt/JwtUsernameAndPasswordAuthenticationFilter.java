@@ -25,7 +25,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     private final AuthenticationManager manager;
     private final JwtProvider jwtProvider;
-   // private UpdateToken updateToken;
    ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
